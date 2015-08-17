@@ -1,0 +1,1 @@
+First steps towards a system for tracking re-usable fragments in writing papers, slides and discussion notes.

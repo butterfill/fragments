@@ -1,0 +1,21 @@
+{
+  "name": "fragments",
+  "version": "0.1.0",
+  "description": "tools for managing fragments of writing",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^2.9.34",
+    "commander": "^2.8.1",
+    "nano": "^6.1.5",
+    "scribe-js": "^2.0.4",
+    "underscore": "^1.8.3"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "frg": "index.js"
+  }
+}
