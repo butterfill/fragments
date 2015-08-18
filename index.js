@@ -1,5 +1,8 @@
 #! /usr/bin/env node
 
+// TODO: describe format of fragments (first line, id, tags, properties ...)
+
+
 require('scribe-js')(); //logging
 var console = process.console;
 
@@ -15,6 +18,8 @@ var path = require('path')
 var program = require('commander');
 
 var db = require('nano')('http://localhost:5984/fragments');
+
+var pdc = require('pdc'); //pandoc wrapper
 
 // Extract the tags from a fragment
 // Tags are like #df #quote
@@ -41,7 +46,8 @@ var remove_tags = function(text) {
 var _props_re = /(^|[^0-9A-Z&\/\?]+)([0-9A-Z_]*[A-Z_-]+[a-z0-9_]*)(\.)([0-9A-Z_:-]+)/gi;
 var get_props = function(text) {
   var props = {};
-  text.replace(_props_re, function(match,before,key,dot,value){
+  var firstline = text.split('\n')[0];
+  firstline.replace(_props_re, function(match,before,key,dot,value){
     // console.log(key,' = ',value);
     props[key]=value;
   })
@@ -67,6 +73,10 @@ var remove_id = function(text) {
   return text.trim().replace(_id_re, '').trim();
 }
 
+var remove_id_props_tags = function(text) {
+  // simply remove the first line
+  return text.split('\n').splice(1).join('\n');
+}
 
 // text represents a fragment like:
 //   joint_action #df \n whatever ...
@@ -74,11 +84,12 @@ var remove_id = function(text) {
 //   event_cause #quote p.30 key.lugo:1990_french whatever ... \n whatever ...
 var parse_fragment = function(text) {
   var tags = get_tags(text);
-  var text = remove_tags(text);
+  //var text = remove_tags(text);
   var props = get_props(text);
-  var text = remove_props(text);
+  //var text = remove_props(text);
   var _id = get_id(text);
-  var text = remove_id(text);
+  //var text = remove_id(text);
+  var text = remove_id_props_tags(text);
   var content = text;
   return {
     _id : _id,        // a unique label (e.g. joint_action)
@@ -222,9 +233,21 @@ var get_all = function(){
           res.add('\n\n#'+doc.id+'\n');
           _.mapObject(doc.doc.fragments, function(fragment,key){
             console.log('key ',key);
-            res.add('##'+key+'\n');
-            // TODO: tags, props, etc
+            //tags, props, date updated
+            res.add('file: '+key+'\n');
+            res.add('updated: '+fragment.source_file_info.modified+'\n');
+            if( fragment.tags && fragment.tags.length && fragment.tags.length > 0 ) {
+              res.add('tags: #'+fragment.tags.join(' #')+'\n');
+            }
+            _.mapObject(fragment.props, function(v,k){
+              res.add(k+': '+v+'\n');
+            });
+            // the actual text of the fragment
             res.add(fragment.content);
+            // TODO: convert to markdown
+            // var content_md = pdc(fragment.content, 'latex', 'markdown', function(err, res){
+            //   res.add(res.markdown);
+            // })
           });
         });
         console.info(res.get());
