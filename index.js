@@ -63,7 +63,7 @@
 
 // scribe-js is a module for loging; it allows console.log({a:1}) to work.
 require('scribe-js')();
-// configure scribe-js
+// Configure scribe-js.
 var console = process.console;
 
 var _ = require('underscore');
@@ -117,10 +117,6 @@ var get_tags = function(text) {
   });
   return tags;
 }
-// Remove tags from the text.
-var remove_tags = function(text) {
-  return text.replace(_tags_re, '');
-}
 
 // `get_props` will extract properties from a fragment.
 // Properties are things like `p.33` and `key.lugo:1999_french`.
@@ -136,9 +132,6 @@ var get_props = function(text) {
   // console.info('props = ',props);
   return props;
 }
-var remove_props = function(text) {
-  return text.replace(_props_re, '');
-}
 
 // Extract the id from a fragment.  The id is the first word (no spaces).
 // 
@@ -151,15 +144,12 @@ var get_id = function(text) {
   throw new Error("No id found for text = "+text);
   
 }
-var remove_id = function(text) {
-  return text.trim().replace(_id_re, '').trim();
-}
 
 // Remove the first line containing id, properties and tags from the fragment.
 // This will not remove tags contained in the fragment proper.
 // This works because the spec requires that the first line of a fragment contain 
 // nothing other than id, properties and tags. 
-var remove_id_props_tags = function(text) {
+var get_content = function(text) {
   // simply remove the first line
   return text.split('\n').splice(1).join('\n');
 }
@@ -173,13 +163,9 @@ var remove_id_props_tags = function(text) {
 // >  event_cause #quote p.30 key.lugo:1990_french whatever ... \n whatever ...
 var parse_fragment = function(text) {
   var tags = get_tags(text);
-  //var text = remove_tags(text);
   var props = get_props(text);
-  //var text = remove_props(text);
   var _id = get_id(text);
-  //var text = remove_id(text);
-  var text = remove_id_props_tags(text);
-  var content = text;
+  var content = get_content(text);
   return {
     _id : _id,        // a unique label (e.g. joint_action)
     tags : tags,      // e.g. df, quote, etc
