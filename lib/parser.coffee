@@ -2,7 +2,9 @@
 
 # Specify the start end end delimiters to use.
 START = /§±\s/
+# START.length specifies how many characters to skip over to get past the delimiter
 START.length = 3
+# END.length specifies how many characters to skip over to get past the delimiter
 END = /±§/
 END.length = 2
 
@@ -21,9 +23,8 @@ find_next_delim = (text) ->
   s = text.match START
   e = text.match END
   return false if not e and not s
-  return [s.index, START] if not e
   return [e.index, END] if not s
-  return [s.index, START] if s.index < e.index
+  return [s.index, START] if not e or s.index < e.index
   return [e.index, END]
 
 
@@ -54,7 +55,7 @@ parse = (text) ->
     text = text.slice start_index + START.length
     end_index  = find_end text
     new_fragment = text.slice 0, end_index
-    console.log new_fragment
+    # console.log new_fragment
     fragments.push new_fragment
     # Find the next start delimiter, starting just after the delimiter we just found.
     # (Don't start after the end delimiter because this will ignore nested fragments.)
@@ -67,5 +68,8 @@ exports.parse = parse
   
 
 
-TEST = 'exclude1 §± first ±§ exclude2 §± second-part1 §± third ±§ §± fourth §± fifth ±§ ±§ second-part2 ±§ exclude 3'
-parse(TEST)
+# assert parse(TEST) is [ 'first ',
+#   'second-part1 §± third ±§ §± fourth §± fifth ±§ ±§ second-part2 ',
+#   'third ',
+#   'fourth §± fifth ±§ ',
+#   'fifth ' ]

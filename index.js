@@ -93,7 +93,7 @@ require('coffee-script/register');
 
 
 
-// Libraries that are part of this project (fragments)
+// Libraries that are part of this project
 // ------------
 var parser = require('./lib/parser');
 
@@ -248,7 +248,7 @@ var add_file = function (filename){
   // Promise.all means do both and fulfill when both are done.
   // The `.then` function will be returned an array of the return values 
   // of the things promised (so `[file contents, file info]` in this case).
-  Promise.all([
+  return Promise.all([
     fs.readFileAsync(filename, 'utf8'),
     get_file_info(filename)
   ])
@@ -334,12 +334,12 @@ var get_all = function(){
 program
   .version('0.1.0')
   .command('add <filename>')
-  .description('read a file and add any fragments found to the database')
+  .description('Read a file and add any fragments found to the database.')
   .action(add_file);
   
 program
   .command('get-all')
-  .description('get all stored fragments')
+  .description('Get all stored fragments.')
   .action(get_all); 
 
 
