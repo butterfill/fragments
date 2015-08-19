@@ -51,6 +51,11 @@ of text from documents written using latex, jade or some other format.
 It is supposed to be used by (i) marking fragments in documents, (ii) calling <code>frg add &lt;filename&gt;</code> to
 extract and store fragements from a document, and then (iii) calling <code>frg get-all</code> to create
 a list of all fragments from all documents sorted by the fragments’ ids.</p>
+<p>An additional utility would read a document and show you which 
+fragments in it now have newer versions, putting the old and new versions side by side (TODO).
+This would make it quick to see whether a definition or quote needs correcting, say.</p>
+<p>You could do all this with index cards; the aim of this utility is to get some of the benefits of
+index cards without breaking your flow by taking you out of the document you’re writing.</p>
 <p>A fragment might look like this:</p>
 <blockquote>
 <p>  % §± ludwig_joint_action p.366 #quote key.ludwig_collective_2007
@@ -89,7 +94,7 @@ treated as latex, ‘name.md’ is treated as markdown.</p>
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
               <p>What follows is a terrible mish mash.
-I just wanted to get something working very quickly to see if it was useful.</p>
+I just wanted to get something working very quickly to see if it would be useful.</p>
 
             </div>
             
@@ -552,21 +557,9 @@ in which the fragemnt was found.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
-              <p>the doc does not already exists</p>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-28">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-28">&#182;</a>
-              </div>
-              <p>the main record in the db is like:
-   { _id: ‘whatever’, fragments: {filename1:fragment1, filename2:fragment2} }</p>
+              <p>The doc does not already exists so we will create one.
+The main record in the db is like:
+   <code>{ _id: &#39;whatever&#39;, fragments: {filename1:fragment1, filename2:fragment2} }</code>.</p>
 
             </div>
             
@@ -581,13 +574,13 @@ in which the fragemnt was found.</p>
         </li>
         
         
-        <li id="section-29">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
-              <p>the doc does already exist</p>
+              <p>The doc does already exist so we will update it if necessary.</p>
 
             </div>
             
@@ -596,13 +589,14 @@ in which the fragemnt was found.</p>
         </li>
         
         
-        <li id="section-30">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
-              <p>for now, we just overwrite</p>
+              <p>For now, we just overwrite.
+TODO: check whether <code>body.fragments[full_file_name]</code> exists; if so, has it changed? Only update if <code>fragment.content</code>, <code>fragment.props</code> or <code>fragment.tags</code> have changed.</p>
 
             </div>
             
@@ -616,14 +610,15 @@ in which the fragemnt was found.</p>
         </li>
         
         
-        <li id="section-31">
+        <li id="section-30">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-30">&#182;</a>
               </div>
-              <p>reads <strong>filename</strong>, scans for fragments
-and adds those fragments to the database</p>
+              <p>Read <strong>filename</strong>, scan for fragments,
+and add those fragments to the database.
+TODO: Mark any missing fragments as deleted from this document (delete missing fragments from the database).</p>
 
             </div>
             
@@ -633,11 +628,11 @@ and adds those fragments to the database</p>
         </li>
         
         
-        <li id="section-32">
+        <li id="section-31">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-32">&#182;</a>
+                <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
               <p>Promise.all means do both and fulfill when both are done.
 The <code>.then</code> function will be returned an array of the return values 
@@ -656,11 +651,11 @@ of the things promised (so <code>[file contents, file info]</code> in this case)
         </li>
         
         
-        <li id="section-33">
+        <li id="section-32">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <p>Parse the text, returning a list of fragments.</p>
 
@@ -671,11 +666,11 @@ of the things promised (so <code>[file contents, file info]</code> in this case)
         </li>
         
         
-        <li id="section-34">
+        <li id="section-33">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-34">&#182;</a>
+                <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
               <p>Update each fragment with the file info.</p>
 
@@ -691,11 +686,11 @@ of the things promised (so <code>[file contents, file info]</code> in this case)
         </li>
         
         
-        <li id="section-35">
+        <li id="section-34">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <p>Store fragments in database.</p>
 
@@ -712,11 +707,11 @@ of the things promised (so <code>[file contents, file info]</code> in this case)
         </li>
         
         
-        <li id="section-36">
+        <li id="section-35">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-36">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>This object is for building a text file of all fragments.
 Right now it just adds strings.
@@ -729,18 +724,18 @@ Later is should allow adding lines, headers and special things. (TODO).</p>
   _val : <span class="hljs-string">''</span>,
   init : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{res._val = <span class="hljs-string">''</span>;},
   add : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">txt</span>) </span>{res._val += txt;},
-  addFile : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">txt</span>) </span>{res._val += <span class="hljs-string">'file: '</span>+key+<span class="hljs-string">'\n'</span>;},
+  addFile : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">txt</span>) </span>{res._val += <span class="hljs-string">'file: '</span>+txt+<span class="hljs-string">'\n'</span>;},
   get : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{<span class="hljs-keyword">return</span> res._val;}
 };</pre></div></div>
             
         </li>
         
         
-        <li id="section-37">
+        <li id="section-36">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-36">&#182;</a>
               </div>
               <p>Get all fragments and create a markdown document listing them.
 The document makes it easy to search for fragments by id or tag</p>
@@ -763,11 +758,11 @@ TODO: output a document (currently just logs to console).</p>
         </li>
         
         
-        <li id="section-38">
+        <li id="section-37">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-38">&#182;</a>
+                <a class="pilcrow" href="#section-37">&#182;</a>
               </div>
               <p>tags, props, date updated</p>
 
@@ -785,11 +780,11 @@ TODO: output a document (currently just logs to console).</p>
         </li>
         
         
-        <li id="section-39">
+        <li id="section-38">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-39">&#182;</a>
+                <a class="pilcrow" href="#section-38">&#182;</a>
               </div>
               <p>the actual text of the fragment</p>
 
@@ -800,11 +795,11 @@ TODO: output a document (currently just logs to console).</p>
         </li>
         
         
-        <li id="section-40">
+        <li id="section-39">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-40">&#182;</a>
+                <a class="pilcrow" href="#section-39">&#182;</a>
               </div>
               <p>TODO: convert to markdown
 var content_md = pdc(fragment.content, ‘latex’, ‘markdown’, function(err, res){
@@ -822,11 +817,11 @@ var content_md = pdc(fragment.content, ‘latex’, ‘markdown’, function(err
         </li>
         
         
-        <li id="section-41">
+        <li id="section-40">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-41">&#182;</a>
+                <a class="pilcrow" href="#section-40">&#182;</a>
               </div>
               <p>error in db.list</p>
 

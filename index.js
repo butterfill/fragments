@@ -58,6 +58,9 @@
 // I just wanted to get something working very quickly to see if it would be useful.
 
 
+// External module dependencies
+// ------------
+
 // scribe-js is a module for loging; it allows console.log({a:1}) to work.
 require('scribe-js')();
 // configure scribe-js
@@ -84,6 +87,22 @@ var db = require('nano')('http://localhost:5984/fragments');
 // pdc is an interface to pandoc.
 // It will be useful for converting between different document formats.
 var pdc = require('pdc'); 
+
+// This allows us to require coffeescript modules
+require('coffee-script/register');
+
+
+
+// Libraries that are part of this project (fragments)
+// ------------
+var parser = require('./lib/parser');
+
+
+
+
+// The code
+// ------------
+
 
 // `get_tags` will extract the tags from a fragment.
 // Tags are words proceeded by '#' as in `#df` `#quote` and `#joint-action`.
@@ -173,23 +192,10 @@ var parse_fragment = function(text) {
 // convert them into fragment objects (with id, tags, props and content),
 // then return the list of fragment objects.
 //
-// NB:can't yet deal with nested tags (TODO)
-// What we really need is a super simple parser.
-// There's a good clue about how to write one 
-// [on stackexchange](http://stackoverflow.com/questions/14952113/how-can-i-match-nested-brackets-using-regex).
-//
-var _parse_ex = /§±([\s\S]*?)±§/gi;
 var parse_text = function(text){
-  var results = [];
-  var m = _parse_ex.exec(text);
-  while( m !== null ) {
-    // console.log(m);
-    var fragment_text = m[1];
-    var fragment_object = parse_fragment(fragment_text);
-    results.push(fragment_object);
-    m = _parse_ex.exec(text);
-  }
-  return results;
+  var fragment_texts = parser.parse(text);
+  var fragment_objects = _.map( fragment_texts, parse_fragment );
+  return fragment_objects;
 }
 
 // Gets the info about a file that we want to assocaite with fragments.

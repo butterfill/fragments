@@ -1,4 +1,10 @@
+first 
+second-part1 §± third ±§ §± fourth §± fifth ±§ ±§ second-part2 
+third 
+fourth §± fifth ±§ 
+fifth 
                                             get-all
+                                            key  /Users/stephenbutterfill/Documents/writing/joint action julian kiverstein routledge handbook of the social mind/joint_action.tex
                                             key  /Users/stephenbutterfill/Documents/writing/joint action julian kiverstein routledge handbook of the social mind/joint_action.tex
                                             key  /Users/stephenbutterfill/Documents/writing/joint action julian kiverstein routledge handbook of the social mind/joint_action.tex
                                             key  /Users/stephenbutterfill/Documents/writing/joint action julian kiverstein routledge handbook of the social mind/joint_action.tex
@@ -39,6 +45,15 @@ tags: #df
 A \emph{goal-state} is a state of an agent which specifies an outcome and which is, or could be, related to the agent’s actions in such a way that these actions are directed to the outcome represented.
 % 
 
+#grounding
+file: /Users/stephenbutterfill/Documents/writing/joint action julian kiverstein routledge handbook of the social mind/joint_action.tex
+updated: 2015-08-17T15:12:43.000Z
+tags: #df
+Let us stipulate that events $D_1$, ...\ $D_n$ \emph{ground} $E$, if: $D_1$, ...\ $D_n$ and $E$ occur;
+$D_1$, ...\ $D_n$ are each (perhaps improper) parts of $E$; and
+every event that is a proper part of $E$ but does not overlap $D_1$, ...\ $D_n$ is caused by some or all of $D_1$, ...\ $D_n$.
+% 
+
 #ludwig_joint_action
 file: /Users/stephenbutterfill/Documents/writing/joint action julian kiverstein routledge handbook of the social mind/joint_action.tex
 updated: 2015-08-17T15:12:43.000Z
@@ -57,7 +72,7 @@ Taking a minimalist approach means finding a simplest possible starting point, a
 #pietroski_grounding
 file: /Users/stephenbutterfill/Documents/writing/joint action julian kiverstein routledge handbook of the social mind/joint_action.tex
 updated: 2015-08-17T15:12:43.000Z
-tags: #df
+tags: #df #df
 Pietroski identified a simple and elegant way of generalising from the idea that an individual can be the agent of an action to the idea that an individual can be the agent of a larger event.
 (His account does require a minor correction, but this is not relevant here.)
 His approach can be generalised to allow for any number of agents.
@@ -65,6 +80,10 @@ His approach can be generalised to allow for any number of agents.
 Let us stipulate that events $D_1$, ...\ $D_n$ \emph{ground} $E$, if: $D_1$, ...\ $D_n$ and $E$ occur;
 $D_1$, ...\ $D_n$ are each (perhaps improper) parts of $E$; and
 every event that is a proper part of $E$ but does not overlap $D_1$, ...\ $D_n$ is caused by some or all of $D_1$, ...\ $D_n$.
+% ±§
+% §± agent_of_event #df
+Then let us say that for an individual to be \emph{among the agents of an event} is for there to be actions $A_1$, ...\ $A_n$ which  ground this event, where the individual is an agent of some (one or more) of these actions.
+% ±§
 % 
 
 #pietroski_grounding_illustration

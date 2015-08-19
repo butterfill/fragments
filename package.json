@@ -9,6 +9,7 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^2.9.34",
+    "coffee-script": "^1.9.3",
     "commander": "^2.8.1",
     "nano": "^6.1.5",
     "pdc": "^0.2.2",
